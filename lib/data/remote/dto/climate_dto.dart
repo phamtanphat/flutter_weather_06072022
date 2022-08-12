@@ -11,19 +11,19 @@ class ClimateDto {
     if (json['weather'] != null) {
       weather = [];
       json['weather'].forEach((v) {
-        weather?.add(Weather.fromJson(v));
+        weather?.add(WeatherDto.fromJson(v));
       });
     }
-    main = json['main'] != null ? Main.fromJson(json['main']) : null;
+    main = json['main'] != null ? MainDto.fromJson(json['main']) : null;
     dt = json['dt'];
-    sys = json['sys'] != null ? Sys.fromJson(json['sys']) : null;
+    sys = json['sys'] != null ? SysDto.fromJson(json['sys']) : null;
     name = json['name'];
   }
 
-  List<Weather>? weather;
-  Main? main;
+  List<WeatherDto>? weather;
+  MainDto? main;
   int? dt;
-  Sys? sys;
+  SysDto? sys;
   String? name;
 
   Map<String, dynamic> toJson() {
@@ -43,10 +43,10 @@ class ClimateDto {
   }
 }
 
-class Sys {
-  Sys({this.country});
+class SysDto {
+  SysDto({this.country});
 
-  Sys.fromJson(dynamic json) {
+  SysDto.fromJson(dynamic json) {
     country = json['country'];
   }
 
@@ -59,10 +59,10 @@ class Sys {
   }
 }
 
-class Main {
-  Main({this.temp, this.tempMin, this.tempMax});
+class MainDto {
+  MainDto({this.temp, this.tempMin, this.tempMax});
 
-  Main.fromJson(dynamic json) {
+  MainDto.fromJson(dynamic json) {
     temp = json['temp'];
     tempMin = json['temp_min'];
     tempMax = json['temp_max'];
@@ -81,10 +81,10 @@ class Main {
   }
 }
 
-class Weather {
-  Weather({this.main, this.description});
+class WeatherDto {
+  WeatherDto({this.main, this.description});
 
-  Weather.fromJson(dynamic json) {
+  WeatherDto.fromJson(dynamic json) {
     main = json['main'];
     description = json['description'];
   }
