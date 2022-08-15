@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_weather_06072022/data/model/climate.dart';
@@ -13,14 +12,14 @@ class HomeController extends ChangeNotifier {
     _climateRepository = climateRepository;
   }
 
-  // Climate get climate => _climate;
+  Climate get climate => _climate;
 
   void getTempFromCityName({String cityName = ""}) async{
     try {
       Response responseDTO = await _climateRepository.getTempFromCityName(cityName: cityName);
       ClimateDto climateDto = ClimateDto.fromJson(responseDTO.data);
       _climate = climateDto.convertToClimate();
-      print(_climate.toString());
+      notifyListeners();
     }catch(e) {
       print(e.toString());
     }

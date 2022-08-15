@@ -1,5 +1,3 @@
-import 'package:flutter_weather_06072022/data/remote/dto/climate_dto.dart';
-
 class Climate {
   List<Weather> weather = [];
   Main main = Main();
@@ -34,9 +32,9 @@ class Sys {
 }
 
 class Main {
-  int temp = -1;
-  int tempMin = -1;
-  int tempMax = -1;
+  num temp = -1;
+  num tempMin = -1;
+  num tempMax = -1;
 
   Main({ this.temp = -1, this.tempMin = -1, this.tempMax = -1});
 

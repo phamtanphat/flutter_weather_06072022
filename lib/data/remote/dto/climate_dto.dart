@@ -88,9 +88,9 @@ class MainDto {
     tempMax = json['temp_max'];
   }
 
-  int? temp;
-  int? tempMin;
-  int? tempMax;
+  num? temp;
+  num? tempMin;
+  num? tempMax;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
