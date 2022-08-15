@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather_06072022/data/model/climate.dart';
 import 'package:flutter_weather_06072022/data/remote/api/api_service.dart';
+import 'package:flutter_weather_06072022/data/remote/app_resource.dart';
 import 'package:flutter_weather_06072022/data/repository/climate_repository.dart';
 import 'package:flutter_weather_06072022/presentations/features/home/home_controller.dart';
+import 'package:flutter_weather_06072022/presentations/widgets/listen_resource_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -59,14 +62,16 @@ class _HomeDemoState extends State<HomeDemo> {
     return Scaffold(
       body: Consumer<HomeController>(
           builder: (context, controller, child) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton(onPressed: () {
-                  homeController.getTempFromCityName(cityName: "London");
-                }, child: Text("Change")),
-                Center(child: Text("${controller.climate.name} ${controller.climate.main.temp}")),
-              ],
+            return ListenResourceWidget(
+              body: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(onPressed: () {
+                    homeController.getTempFromCityName(cityName: "qwewqekwqejwqlej");
+                  }, child: Text("Change")),
+                  Center(child: Text("")),
+                ],
+              ),
             );
           }
       ),

@@ -2,10 +2,24 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'app_resource.freezed.dart';
 
-@freezed
-class AppResource<T> with _$AppResource<T>{
+class MyState<T> {
+  T value;
 
-  const factory AppResource.success(T value) = Success<T>;
-  const factory AppResource.loading() = Loading<T>;
-  const factory AppResource.error([String? message]) = Error<T>;
+  MyState._();
+
+  factory MyState.success(String foo) = MySuccessState;
+  factory MyState.error(String foo) = MyErrorState;
+}
+
+class MyErrorState extends MyState {
+  MyErrorState(this.msg): super._();
+
+  final String msg;
+}
+
+class MySuccessState<T> extends MyState<T> {
+  MySuccessState(this.value): super._();
+
+  @override
+  final T value;
 }
