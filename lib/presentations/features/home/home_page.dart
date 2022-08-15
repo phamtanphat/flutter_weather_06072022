@@ -65,7 +65,7 @@ class _HomeDemoState extends State<HomeDemo> {
                 ElevatedButton(onPressed: () {
                   homeController.getTempFromCityName(cityName: "Hanoi");
                 }, child: Text("Change")),
-                Center(child: Text(controller.data)),
+                Center(child: Text("")),
               ],
             );
           }

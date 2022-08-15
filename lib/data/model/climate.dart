@@ -1,16 +1,20 @@
-class Climate {
-  List<Weather>? weather;
-  Main? main;
-  int? dt;
-  Sys? sys;
-  String? name;
+import 'package:flutter_weather_06072022/data/remote/dto/climate_dto.dart';
 
-  Climate({
-    this.weather,
-    this.main,
-    this.dt,
-    this.sys,
-    this.name,
+class Climate {
+  List<Weather> weather = [];
+  Main main = Main();
+  int dt = -1;
+  Sys sys = Sys();
+  String name = "";
+
+  Climate();
+
+  Climate.init({
+    required this.weather,
+    required this.main,
+    required this.dt,
+    required this.sys,
+    required this.name
   });
 
   @override
@@ -20,9 +24,8 @@ class Climate {
 }
 
 class Sys {
-  String? country;
-
-  Sys({this.country});
+  String country = "";
+  Sys({this.country = ""});
 
   @override
   String toString() {
@@ -31,11 +34,11 @@ class Sys {
 }
 
 class Main {
-  int? temp;
-  int? tempMin;
-  int? tempMax;
+  int temp = -1;
+  int tempMin = -1;
+  int tempMax = -1;
 
-  Main({this.temp, this.tempMin, this.tempMax});
+  Main({ this.temp = -1, this.tempMin = -1, this.tempMax = -1});
 
   @override
   String toString() {
@@ -44,10 +47,10 @@ class Main {
 }
 
 class Weather {
-  String? main;
-  String? description;
+  String main = "";
+  String description = "";
 
-  Weather({this.main, this.description});
+  Weather({ this.main = "", this.description = ""});
 
   @override
   String toString() {

@@ -1,3 +1,5 @@
+import 'package:flutter_weather_06072022/data/model/climate.dart';
+
 class ClimateDto {
   ClimateDto({
     this.weather,
@@ -40,6 +42,24 @@ class ClimateDto {
     }
     map['name'] = name;
     return map;
+  }
+
+  Climate convertToClimate() {
+    List<Weather> listWeather = [];
+    weather?.forEach((weatherDto) {
+      listWeather.add(Weather(main: weatherDto.main ?? "", description: weatherDto.description ?? ""));
+    });
+    return Climate.init(
+        weather: listWeather,
+        main: Main(
+            temp: main?.temp ?? -1,
+            tempMin: main?.tempMin ?? -1,
+            tempMax: main?.tempMax ?? -1
+        ),
+        dt: dt ?? -1,
+        sys: Sys(country: sys?.country ?? ""),
+        name: name ?? ""
+    );
   }
 }
 
