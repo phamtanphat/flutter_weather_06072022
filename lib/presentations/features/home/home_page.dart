@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather_06072022/data/model/climate.dart';
 import 'package:flutter_weather_06072022/data/remote/api/api_service.dart';
-import 'package:flutter_weather_06072022/data/remote/app_resource.dart';
 import 'package:flutter_weather_06072022/data/repository/climate_repository.dart';
 import 'package:flutter_weather_06072022/presentations/features/home/home_controller.dart';
-import 'package:flutter_weather_06072022/presentations/widgets/listen_resource_widget.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
@@ -42,39 +40,32 @@ class HomeDemo extends StatefulWidget {
 }
 
 class _HomeDemoState extends State<HomeDemo> {
-  late HomeController homeController;
+  HomeController? homeController;
 
   @override
   void initState() {
     super.initState();
     homeController = context.read();
+    homeController?.getTempFromCityName(cityName: "Hanoi");
   }
 
-  @override
-  void didUpdateWidget(covariant HomeDemo oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    homeController.getTempFromCityName(cityName: "Hanoi");
+  Climate getClimate() {
+    return context.watch<HomeController>().climate;
   }
 
   @override
   Widget build(BuildContext context) {
     print("Build");
     return Scaffold(
-      body: Consumer<HomeController>(
-          builder: (context, controller, child) {
-            return ListenResourceWidget(
-              body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(onPressed: () {
-                    homeController.getTempFromCityName(cityName: "qwewqekwqejwqlej");
-                  }, child: Text("Change")),
-                  Center(child: Text("")),
-                ],
-              ),
-            );
-          }
-      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ElevatedButton(onPressed: () {
+            homeController?.getTempFromCityName(cityName: "London");
+          }, child: Text("Change")),
+          Center(child: Text(getClimate().name)),
+        ],
+      )
     );
   }
 }
