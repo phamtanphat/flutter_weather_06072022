@@ -24,15 +24,14 @@ class HomeController{
   void getTempFromCityName({String cityName = ""}) async{
     _loadingController.sink.add(true);
     try {
-      await Future.delayed(Duration(seconds: 2));
       Response responseDTO = await _climateRepository.getTempFromCityName(cityName: cityName);
       ClimateDto climateDto = ClimateDto.fromJson(responseDTO.data);
       _behaviorClimateController.sink.add(climateDto.convertToClimate());
     } on DioError catch(dioError) {
-      print(dioError.message);
-      // _appResource = AppResource.error(dioError.message);
+      var messageError = dioError.response?.data["message"] ?? dioError.message;
+      _behaviorClimateController.sink.addError(messageError);
     } catch(e) {
-      print(e.toString());
+      _behaviorClimateController.sink.addError(e);
     }
     _loadingController.sink.add(false);
   }

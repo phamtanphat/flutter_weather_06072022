@@ -60,7 +60,7 @@ class _HomeDemoState extends State<HomeDemo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(onPressed: () {
-                homeController.getTempFromCityName(cityName: "London");
+                homeController.getTempFromCityName(cityName: "Londonưqlejwqe");
               }, child: Text("Change")),
               Center(
                   child: StreamBuilder<Climate>(
