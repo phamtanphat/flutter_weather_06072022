@@ -57,15 +57,36 @@ class _HomeDemoState extends State<HomeDemo> {
   Widget build(BuildContext context) {
     print("Build");
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      body: Stack(
+        alignment: Alignment.center,
         children: [
-          ElevatedButton(onPressed: () {
-            homeController?.getTempFromCityName(cityName: "London");
-          }, child: Text("Change")),
-          Center(child: Text(getClimate().name)),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(onPressed: () {
+                homeController?.getTempFromCityName(cityName: "London324324");
+              }, child: Text("Change")),
+              Center(child: Text(getClimate().name)),
+            ],
+          ),
+          LoadingWidget(isLoading: context.watch<HomeController>().isLoading)
         ],
       )
     );
+  }
+}
+
+class LoadingWidget extends StatelessWidget {
+  bool isLoading;
+
+  LoadingWidget({required this.isLoading});
+
+  @override
+  Widget build(BuildContext context) {
+    if (isLoading) {
+      return CircularProgressIndicator();
+    } else {
+      return Container();
+    }
   }
 }
