@@ -19,7 +19,7 @@ class HomePage extends StatelessWidget {
           climateRepository.updateClimateRepository(apiService: apiService);
           return climateRepository;
         }),
-        ChangeNotifierProxyProvider<ClimateRepository, HomeController>(
+        ProxyProvider<ClimateRepository, HomeController>(
             create: (context) => HomeController(),
             update: (context, repository, controller) {
               controller ??= HomeController();
@@ -40,17 +40,13 @@ class HomeDemo extends StatefulWidget {
 }
 
 class _HomeDemoState extends State<HomeDemo> {
-  HomeController? homeController;
+  late HomeController homeController;
 
   @override
   void initState() {
     super.initState();
     homeController = context.read();
-    homeController?.getTempFromCityName(cityName: "Hanoi");
-  }
-
-  Climate getClimate() {
-    return context.watch<HomeController>().climate;
+    homeController.getTempFromCityName(cityName: "Hanoi");
   }
 
   @override
@@ -64,29 +60,34 @@ class _HomeDemoState extends State<HomeDemo> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(onPressed: () {
-                homeController?.getTempFromCityName(cityName: "London324324");
+                homeController.getTempFromCityName(cityName: "London");
               }, child: Text("Change")),
-              Center(child: Text(getClimate().name)),
+              Center(
+                  child: StreamBuilder<Climate>(
+                    initialData: null,
+                    stream: homeController.climateStream,
+                    builder: (context, snapshot){
+                      if (snapshot.hasError) {
+                        return Text(snapshot.error.toString());
+                      }
+                      return Text(snapshot.data?.name ?? "");
+                    },
+                  )
+              ),
             ],
           ),
-          LoadingWidget(isLoading: context.watch<HomeController>().isLoading)
+          StreamBuilder<bool>(
+            initialData: false,
+            stream: homeController.loadingStream,
+            builder: (context, snapshot){
+              if (snapshot.data != null && snapshot.data == true) {
+                return CircularProgressIndicator();
+              }
+              return Container();
+            },
+          ),
         ],
       )
     );
-  }
-}
-
-class LoadingWidget extends StatelessWidget {
-  bool isLoading;
-
-  LoadingWidget({required this.isLoading});
-
-  @override
-  Widget build(BuildContext context) {
-    if (isLoading) {
-      return CircularProgressIndicator();
-    } else {
-      return Container();
-    }
   }
 }

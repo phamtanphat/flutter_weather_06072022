@@ -15,8 +15,8 @@ class HomeController{
     _climateRepository = climateRepository;
   }
 
-  Stream get climateStream => _behaviorClimateController.stream;
-  Stream get loadingStream => _loadingController.stream;
+  Stream<Climate> get climateStream => _behaviorClimateController.stream;
+  Stream<bool> get loadingStream => _loadingController.stream;
 
   Sink get climateSink => _behaviorClimateController.sink;
   Sink get loadingSink => _loadingController.sink;
@@ -24,6 +24,7 @@ class HomeController{
   void getTempFromCityName({String cityName = ""}) async{
     _loadingController.sink.add(true);
     try {
+      await Future.delayed(Duration(seconds: 2));
       Response responseDTO = await _climateRepository.getTempFromCityName(cityName: cityName);
       ClimateDto climateDto = ClimateDto.fromJson(responseDTO.data);
       _behaviorClimateController.sink.add(climateDto.convertToClimate());
