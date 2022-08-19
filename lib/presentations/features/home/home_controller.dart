@@ -27,7 +27,6 @@ class HomeController{
     });
   }
 
-
   Stream<Climate> get climateStream => _behaviorClimateController.stream;
   Stream<bool> get loadingStream => _loadingController.stream;
 
